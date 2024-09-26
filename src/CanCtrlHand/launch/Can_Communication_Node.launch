@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- -*- mode: XML -*- -->
+<launch>
+	<arg name="HandEnable" default="true"/>  
+	<arg name="RightHandID" default="39"/>	 <!-- -*-0x27-*- -->
+	<arg name="LeftHandID" default="40"/>	 <!-- -*-0x28-*- -->
+
+    <arg name="Hand_Freedom" default="9"/> <!-- -*-6/9/10/16 自由度选择; 100 最小系统遥操作控制-*- -->	
+    <arg name="JointVelocity" default="10"/> <!-- -*-速度 0-255-*- -->	
+    <arg name="JointEffort" default="100"/> <!-- -*-力度 0-255-*- -->	 
+
+	<node pkg="CanCtrlHand" type="Can_Communication_Node" name="arm" required="true" output="screen" respawn="false">
+        <param name="HandEnable" value="$(arg HandEnable)" /> 
+        <param name="RightHandID" value="$(arg RightHandID)" /> 
+        <param name="LeftHandID" value="$(arg LeftHandID)" /> 
+
+        <param name="Hand_Freedom" value="$(arg Hand_Freedom)" />
+        <param name="JointVelocity" value="$(arg JointVelocity)" />
+        <param name="JointEffort" value="$(arg JointEffort)" />
+        
+	</node>
+	
+</launch>
