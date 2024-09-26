@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!-- -*- mode: XML -*- -->
+<launch>
+	<arg name="hand_ip" default="192.168.11.40"/>			   
+    <arg name="handEnable" default="true"/>	 
+
+    <arg name="Hand_Freedom" default="10"/> <!-- -*-6/9/10/16 自由度选择; 100 最小系统遥操作控制；106/109/110/116  最小系统机械手自由度选择;-*- -->	
+    <arg name="JointVelocity" default="10"/> <!-- -*-速度 0-255-*- -->	
+    <arg name="JointEffort" default="100"/> <!-- -*-力度 0-255-*- -->	
+
+	<node pkg="HandTCPCommunication" type="HandCtrl_node" name="arm" required="true" output="screen" respawn="false">
+		
+        <param name="hand_ip" value="$(arg hand_ip)" />  
+        <param name="handEnable" value="$(arg handEnable)" /> 
+
+        <param name="Hand_Freedom" value="$(arg Hand_Freedom)" />
+        <param name="JointVelocity" value="$(arg JointVelocity)" />
+        <param name="JointEffort" value="$(arg JointEffort)" />
+        
+	</node>
+	
+</launch>
