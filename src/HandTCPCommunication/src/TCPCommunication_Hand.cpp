@@ -101,39 +101,39 @@ namespace AIMOcommunicate
         HandClient_Send.Set_Speed_LeftHand.Joint4_tip      = JointVelocity;
         HandClient_Send.Set_Speed_LeftHand.Joint5_tip      = JointVelocity;   
 
-        HandClient_Send.Set_Point_RightHand.Joint1          = 200;
-        HandClient_Send.Set_Point_RightHand.Joint2          = 200;
+        HandClient_Send.Set_Point_RightHand.Joint1          = 80;
+        HandClient_Send.Set_Point_RightHand.Joint2          = 128;
         HandClient_Send.Set_Point_RightHand.Joint3          = 200;
         HandClient_Send.Set_Point_RightHand.Joint4          = 200;
         HandClient_Send.Set_Point_RightHand.Joint5          = 200;
         HandClient_Send.Set_Point_RightHand.Joint6          = 200;
-        HandClient_Send.Set_Point_RightHand.Joint7          = 200;
-        HandClient_Send.Set_Point_RightHand.Joint8          = 200;
-        HandClient_Send.Set_Point_RightHand.Joint9          = 200;
+        HandClient_Send.Set_Point_RightHand.Joint7          = 128;
+        HandClient_Send.Set_Point_RightHand.Joint8          = 128;
+        HandClient_Send.Set_Point_RightHand.Joint9          = 128;
         HandClient_Send.Set_Point_RightHand.Joint1_rotation = 0;
-        HandClient_Send.Set_Point_RightHand.Joint3_raw      = 0;
+        HandClient_Send.Set_Point_RightHand.Joint3_raw      = 128;
         HandClient_Send.Set_Point_RightHand.Joint1_tip      = 0;
         HandClient_Send.Set_Point_RightHand.Joint2_tip      = 0;
         HandClient_Send.Set_Point_RightHand.Joint3_tip      = 0;
         HandClient_Send.Set_Point_RightHand.Joint4_tip      = 0;
         HandClient_Send.Set_Point_RightHand.Joint5_tip      = 0;
 
-        HandClient_Send.Set_Point_LeftHand.Joint1          = 200;
-        HandClient_Send.Set_Point_LeftHand.Joint2          = 200;
+        HandClient_Send.Set_Point_LeftHand.Joint1          = 80;
+        HandClient_Send.Set_Point_LeftHand.Joint2          = 128;
         HandClient_Send.Set_Point_LeftHand.Joint3          = 200;
         HandClient_Send.Set_Point_LeftHand.Joint4          = 200;
         HandClient_Send.Set_Point_LeftHand.Joint5          = 200;
         HandClient_Send.Set_Point_LeftHand.Joint6          = 200;
-        HandClient_Send.Set_Point_LeftHand.Joint7          = 200;
-        HandClient_Send.Set_Point_LeftHand.Joint8          = 200;
-        HandClient_Send.Set_Point_LeftHand.Joint9          = 200; 
+        HandClient_Send.Set_Point_LeftHand.Joint7          = 128;
+        HandClient_Send.Set_Point_LeftHand.Joint8          = 128;
+        HandClient_Send.Set_Point_LeftHand.Joint9          = 128; 
         HandClient_Send.Set_Point_LeftHand.Joint1_rotation = 0;
-        HandClient_Send.Set_Point_LeftHand.Joint3_raw      = 0;
+        HandClient_Send.Set_Point_LeftHand.Joint3_raw      = 128;
         HandClient_Send.Set_Point_LeftHand.Joint1_tip      = 0;
         HandClient_Send.Set_Point_LeftHand.Joint2_tip      = 0;
         HandClient_Send.Set_Point_LeftHand.Joint3_tip      = 0;
         HandClient_Send.Set_Point_LeftHand.Joint4_tip      = 0;
-        HandClient_Send.Set_Point_LeftHand.Joint5_tip      = 0;     
+        HandClient_Send.Set_Point_LeftHand.Joint5_tip      = 0;
     }
 
     bool TCPCommunication_Hand::Hand_TCPCommunication_connect(const ros::NodeHandle& ros_TCP_nh)
@@ -163,6 +163,7 @@ namespace AIMOcommunicate
         if(msg->position.size() == 16)
         {
             std::cout << "RightHandCtrl_subCallback " << std::endl;
+            // 关节角度
             HandClient_Send.Set_Point_RightHand.Joint1 = msg->position[0];
             HandClient_Send.Set_Point_RightHand.Joint2 = msg->position[1];
             HandClient_Send.Set_Point_RightHand.Joint3 = msg->position[2];
@@ -185,6 +186,76 @@ namespace AIMOcommunicate
         else
         {
             ROS_WARN("RightHandCtrl_subCallback: joint state size is not 16!");
+        }
+
+        // 速度值
+        if(msg->velocity.size() < 16 && msg->velocity.size() > 0)
+        {
+            HandClient_Send.Set_Speed_RightHand.Joint1 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_RightHand.Joint2 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_RightHand.Joint3 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_RightHand.Joint4 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_RightHand.Joint5 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_RightHand.Joint6 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_RightHand.Joint7 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_RightHand.Joint8 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_RightHand.Joint9 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            
+            HandClient_Send.Set_Speed_RightHand.Joint1_rotation = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            
+            HandClient_Send.Set_Speed_RightHand.Joint3_raw = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_RightHand.Joint1_tip = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_RightHand.Joint2_tip = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_RightHand.Joint3_tip = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_RightHand.Joint4_tip = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_RightHand.Joint5_tip = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+        }
+        else if(msg->velocity.size() >= 16)
+        {
+            HandClient_Send.Set_Speed_RightHand.Joint1 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_RightHand.Joint2 = (msg->velocity[1] == 0) ? JointVelocity : msg->velocity[1];
+            HandClient_Send.Set_Speed_RightHand.Joint3 = (msg->velocity[2] == 0) ? JointVelocity : msg->velocity[2];
+            HandClient_Send.Set_Speed_RightHand.Joint4 = (msg->velocity[3] == 0) ? JointVelocity : msg->velocity[3];
+            HandClient_Send.Set_Speed_RightHand.Joint5 = (msg->velocity[4] == 0) ? JointVelocity : msg->velocity[4];
+            HandClient_Send.Set_Speed_RightHand.Joint6 = (msg->velocity[5] == 0) ? JointVelocity : msg->velocity[5];
+            HandClient_Send.Set_Speed_RightHand.Joint7 = (msg->velocity[6] == 0) ? JointVelocity : msg->velocity[6];
+            HandClient_Send.Set_Speed_RightHand.Joint8 = (msg->velocity[7] == 0) ? JointVelocity : msg->velocity[7];
+            HandClient_Send.Set_Speed_RightHand.Joint9 = (msg->velocity[8] == 0) ? JointVelocity : msg->velocity[8];
+            
+            HandClient_Send.Set_Speed_RightHand.Joint1_rotation = (msg->velocity[9] == 0) ? JointVelocity : msg->velocity[9];
+            
+            HandClient_Send.Set_Speed_RightHand.Joint3_raw = (msg->velocity[10] == 0) ? JointVelocity : msg->velocity[10];
+            HandClient_Send.Set_Speed_RightHand.Joint1_tip = (msg->velocity[11] == 0) ? JointVelocity : msg->velocity[11];
+            HandClient_Send.Set_Speed_RightHand.Joint2_tip = (msg->velocity[12] == 0) ? JointVelocity : msg->velocity[12];
+            HandClient_Send.Set_Speed_RightHand.Joint3_tip = (msg->velocity[13] == 0) ? JointVelocity : msg->velocity[13];
+            HandClient_Send.Set_Speed_RightHand.Joint4_tip = (msg->velocity[14] == 0) ? JointVelocity : msg->velocity[14];
+            HandClient_Send.Set_Speed_RightHand.Joint5_tip = (msg->velocity[15] == 0) ? JointVelocity : msg->velocity[15];
+        }
+        else
+        {
+            ROS_WARN("RightHandCtrl_subCallback: velocity state size is warn!");
+        }
+
+        // 力度
+        if(msg->effort.size() < 5 && msg->effort.size() > 0)
+        {
+            HandClient_Send.Set_Force_RightHand.Joint1 = (msg->effort[0] == 0) ? JointEffort : msg->effort[0];
+            HandClient_Send.Set_Force_RightHand.Joint2 = (msg->effort[0] == 0) ? JointEffort : msg->effort[0];
+            HandClient_Send.Set_Force_RightHand.Joint3 = (msg->effort[0] == 0) ? JointEffort : msg->effort[0];
+            HandClient_Send.Set_Force_RightHand.Joint4 = (msg->effort[0] == 0) ? JointEffort : msg->effort[0];
+            HandClient_Send.Set_Force_RightHand.Joint5 = (msg->effort[0] == 0) ? JointEffort : msg->effort[0];
+        }
+        else if(msg->effort.size() >= 5)
+        {
+            HandClient_Send.Set_Force_RightHand.Joint1 = (msg->effort[0] == 0) ? JointEffort : msg->effort[0];
+            HandClient_Send.Set_Force_RightHand.Joint2 = (msg->effort[1] == 0) ? JointEffort : msg->effort[1];
+            HandClient_Send.Set_Force_RightHand.Joint3 = (msg->effort[2] == 0) ? JointEffort : msg->effort[2];
+            HandClient_Send.Set_Force_RightHand.Joint4 = (msg->effort[3] == 0) ? JointEffort : msg->effort[3];
+            HandClient_Send.Set_Force_RightHand.Joint5 = (msg->effort[4] == 0) ? JointEffort : msg->effort[4];
+        }
+        else
+        {
+            ROS_WARN("RightHandCtrl_subCallback: effort state size is warn!");
         }
     }
     void TCPCommunication_Hand::LeftHandCtrl_subCallback(const sensor_msgs::JointState::ConstPtr& msg) 
@@ -215,6 +286,76 @@ namespace AIMOcommunicate
         {
             ROS_WARN("LeftHandCtrl_subCallback: joint state size is not 16!");
         } 
+
+        // 速度值
+        if(msg->velocity.size() < 16 && msg->velocity.size() > 0)
+        {
+            HandClient_Send.Set_Speed_LeftHand.Joint1 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_LeftHand.Joint2 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_LeftHand.Joint3 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_LeftHand.Joint4 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_LeftHand.Joint5 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_LeftHand.Joint6 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_LeftHand.Joint7 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_LeftHand.Joint8 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_LeftHand.Joint9 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            
+            HandClient_Send.Set_Speed_LeftHand.Joint1_rotation = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            
+            HandClient_Send.Set_Speed_LeftHand.Joint3_raw = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_LeftHand.Joint1_tip = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_LeftHand.Joint2_tip = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_LeftHand.Joint3_tip = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_LeftHand.Joint4_tip = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_LeftHand.Joint5_tip = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+        }
+        else if(msg->velocity.size() >= 16)
+        {
+            HandClient_Send.Set_Speed_LeftHand.Joint1 = (msg->velocity[0] == 0) ? JointVelocity : msg->velocity[0];
+            HandClient_Send.Set_Speed_LeftHand.Joint2 = (msg->velocity[1] == 0) ? JointVelocity : msg->velocity[1];
+            HandClient_Send.Set_Speed_LeftHand.Joint3 = (msg->velocity[2] == 0) ? JointVelocity : msg->velocity[2];
+            HandClient_Send.Set_Speed_LeftHand.Joint4 = (msg->velocity[3] == 0) ? JointVelocity : msg->velocity[3];
+            HandClient_Send.Set_Speed_LeftHand.Joint5 = (msg->velocity[4] == 0) ? JointVelocity : msg->velocity[4];
+            HandClient_Send.Set_Speed_LeftHand.Joint6 = (msg->velocity[5] == 0) ? JointVelocity : msg->velocity[5];
+            HandClient_Send.Set_Speed_LeftHand.Joint7 = (msg->velocity[6] == 0) ? JointVelocity : msg->velocity[6];
+            HandClient_Send.Set_Speed_LeftHand.Joint8 = (msg->velocity[7] == 0) ? JointVelocity : msg->velocity[7];
+            HandClient_Send.Set_Speed_LeftHand.Joint9 = (msg->velocity[8] == 0) ? JointVelocity : msg->velocity[8];
+            
+            HandClient_Send.Set_Speed_LeftHand.Joint1_rotation = (msg->velocity[9] == 0) ? JointVelocity : msg->velocity[9];
+            
+            HandClient_Send.Set_Speed_LeftHand.Joint3_raw = (msg->velocity[10] == 0) ? JointVelocity : msg->velocity[10];
+            HandClient_Send.Set_Speed_LeftHand.Joint1_tip = (msg->velocity[11] == 0) ? JointVelocity : msg->velocity[11];
+            HandClient_Send.Set_Speed_LeftHand.Joint2_tip = (msg->velocity[12] == 0) ? JointVelocity : msg->velocity[12];
+            HandClient_Send.Set_Speed_LeftHand.Joint3_tip = (msg->velocity[13] == 0) ? JointVelocity : msg->velocity[13];
+            HandClient_Send.Set_Speed_LeftHand.Joint4_tip = (msg->velocity[14] == 0) ? JointVelocity : msg->velocity[14];
+            HandClient_Send.Set_Speed_LeftHand.Joint5_tip = (msg->velocity[15] == 0) ? JointVelocity : msg->velocity[15];
+        }
+        else
+        {
+            ROS_WARN("RightHandCtrl_subCallback: velocity state size is warn!");
+        }
+
+        // 力度
+        if(msg->effort.size() < 5 && msg->effort.size() > 0)
+        {
+            HandClient_Send.Set_Force_LeftHand.Joint1 = (msg->effort[0] == 0) ? JointEffort : msg->effort[0];
+            HandClient_Send.Set_Force_LeftHand.Joint2 = (msg->effort[0] == 0) ? JointEffort : msg->effort[0];
+            HandClient_Send.Set_Force_LeftHand.Joint3 = (msg->effort[0] == 0) ? JointEffort : msg->effort[0];
+            HandClient_Send.Set_Force_LeftHand.Joint4 = (msg->effort[0] == 0) ? JointEffort : msg->effort[0];
+            HandClient_Send.Set_Force_LeftHand.Joint5 = (msg->effort[0] == 0) ? JointEffort : msg->effort[0];
+        }
+        else if(msg->effort.size() >= 5)
+        {
+            HandClient_Send.Set_Force_LeftHand.Joint1 = (msg->effort[0] == 0) ? JointEffort : msg->effort[0];
+            HandClient_Send.Set_Force_LeftHand.Joint2 = (msg->effort[1] == 0) ? JointEffort : msg->effort[1];
+            HandClient_Send.Set_Force_LeftHand.Joint3 = (msg->effort[2] == 0) ? JointEffort : msg->effort[2];
+            HandClient_Send.Set_Force_LeftHand.Joint4 = (msg->effort[3] == 0) ? JointEffort : msg->effort[3];
+            HandClient_Send.Set_Force_LeftHand.Joint5 = (msg->effort[4] == 0) ? JointEffort : msg->effort[4];
+        }
+        else
+        {
+            ROS_WARN("RightHandCtrl_subCallback: effort state size is warn!");
+        }
     }
     
     void TCPCommunication_Hand::RightHand_pubFunction(void)
