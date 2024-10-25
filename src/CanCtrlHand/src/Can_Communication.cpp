@@ -884,17 +884,17 @@ namespace AIMOcommunicate
         Hand_16Dof_Send.ring.pitch_angle = LeftHand_Send.joint_angle_5;
         Hand_16Dof_Send.little.pitch_angle = LeftHand_Send.joint_angle_6;
 
-        Hand_16Dof_Send.thumb.yaw_angle = LeftHand_Send.joint_angle_2;
+        Hand_16Dof_Send.thumb.yaw_angle = LeftHand_Send.joint1_rotation;
         Hand_16Dof_Send.index.yaw_angle = LeftHand_Send.joint_angle_7;
         Hand_16Dof_Send.middle.yaw_angle = LeftHand_Send.joint3_raw;
         Hand_16Dof_Send.ring.yaw_angle = LeftHand_Send.joint_angle_8;
         Hand_16Dof_Send.little.yaw_angle = LeftHand_Send.joint_angle_9;
 
-        Hand_16Dof_Send.thumb.roll_angle = LeftHand_Send.joint1_rotation;
-        Hand_16Dof_Send.index.roll_angle = LeftHand_Send.joint1_rotation;
-        Hand_16Dof_Send.middle.roll_angle = LeftHand_Send.joint1_rotation;
-        Hand_16Dof_Send.ring.roll_angle = LeftHand_Send.joint1_rotation;
-        Hand_16Dof_Send.little.roll_angle = LeftHand_Send.joint1_rotation;
+        Hand_16Dof_Send.thumb.roll_angle = LeftHand_Send.joint_angle_2;
+        Hand_16Dof_Send.index.roll_angle = LeftHand_Send.joint_angle_2;
+        Hand_16Dof_Send.middle.roll_angle = LeftHand_Send.joint_angle_2;
+        Hand_16Dof_Send.ring.roll_angle = LeftHand_Send.joint_angle_2;
+        Hand_16Dof_Send.little.roll_angle = LeftHand_Send.joint_angle_2;
 
         Hand_16Dof_Send.thumb.tip_angle = LeftHand_Send.joint1_tip;
         Hand_16Dof_Send.index.tip_angle = LeftHand_Send.joint2_tip;
@@ -913,7 +913,6 @@ namespace AIMOcommunicate
         Hand_16Dof_Send.middle.over_current = LeftHand_Send.pressure_3;
         Hand_16Dof_Send.ring.over_current = LeftHand_Send.pressure_4;
         Hand_16Dof_Send.little.over_current = LeftHand_Send.pressure_5;
-
         CanSend_16DofHand(LeftHandID);
     }
     void Can_Communication::AllRecvDataDeal_16DofHand(void)
