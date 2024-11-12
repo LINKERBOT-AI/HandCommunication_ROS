@@ -1,5 +1,4 @@
-
-/*
+ /*
   通讯处理类：can 总线通信 控制机械手
 */
 #include "Can_Communication.h"
@@ -236,6 +235,32 @@ namespace AIMOcommunicate
         {
             ROS_WARN("RightHandCtrl_subCallback: joint state size is not 16!");
         }
+
+        if(msg->velocity.size() >= 5)
+        {
+            RightHand_Send.speed_1 = msg->velocity[0];
+            RightHand_Send.speed_2 = msg->velocity[1];
+            RightHand_Send.speed_3 = msg->velocity[2];
+            RightHand_Send.speed_4 = msg->velocity[3];
+            RightHand_Send.speed_5 = msg->velocity[4];
+        }
+        else
+        {
+            ROS_WARN("RightHandCtrl_subCallback: velocity state size is not 16!");
+        }
+
+        if(msg->effort.size() >= 5)
+        {
+            RightHand_Send.pressure_1 = msg->effort[0];
+            RightHand_Send.pressure_2 = msg->effort[1];
+            RightHand_Send.pressure_3 = msg->effort[2];
+            RightHand_Send.pressure_4 = msg->effort[3];
+            RightHand_Send.pressure_5 = msg->effort[4];
+        }
+        else
+        {
+            ROS_WARN("RightHandCtrl_subCallback: effort state size is warn!");
+        }
     }
     void Can_Communication::LeftHandCtrl_subCallback(const sensor_msgs::JointState::ConstPtr &msg)
     {
@@ -263,6 +288,32 @@ namespace AIMOcommunicate
         else
         {
             ROS_WARN("LeftHandCtrl_subCallback: joint state size is not 16!");
+        }
+
+        if(msg->velocity.size() >= 5)
+        {
+            LeftHand_Send.speed_1 = msg->velocity[0];
+            LeftHand_Send.speed_2 = msg->velocity[1];
+            LeftHand_Send.speed_3 = msg->velocity[2];
+            LeftHand_Send.speed_4 = msg->velocity[3];
+            LeftHand_Send.speed_5 = msg->velocity[4];
+        }
+        else
+        {
+            ROS_WARN("LeftHandCtrl_subCallback: velocity state size is not 16!");
+        }
+
+        if(msg->effort.size() >= 5)
+        {
+            LeftHand_Send.pressure_1 = msg->effort[0];
+            LeftHand_Send.pressure_2 = msg->effort[1];
+            LeftHand_Send.pressure_3 = msg->effort[2];
+            LeftHand_Send.pressure_4 = msg->effort[3];
+            LeftHand_Send.pressure_5 = msg->effort[4];
+        }
+        else
+        {
+            ROS_WARN("LeftHandCtrl_subCallback: effort state size is warn!");
         }
     }
 
